@@ -118,8 +118,9 @@ class _HomePageState extends State<HomePage> {
                       // ignore: no_leading_underscores_for_local_identifiers
                       var _newTask =
                           Task.create(name: value, createdDate: time);
-                      _allTasks.add(_newTask);
                       await localStorage.addTask(task: _newTask);
+                      getAllTask();
+
                       setState(() {});
                     },
                   );
