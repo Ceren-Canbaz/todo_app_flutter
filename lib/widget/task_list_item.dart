@@ -1,6 +1,7 @@
+// ignore_for_file: prefer_final_fields
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:intl/intl.dart';
 
 import '../model/task.dart';
@@ -17,7 +18,6 @@ class _TaskItemState extends State<TaskItem> {
   TextEditingController _controller = TextEditingController();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _controller.text = widget.task.name;
   }
@@ -25,7 +25,7 @@ class _TaskItemState extends State<TaskItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 20, right: 20, left: 20),
+      margin: const EdgeInsets.only(top: 20, right: 20, left: 20),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(5),
@@ -69,7 +69,7 @@ class _TaskItemState extends State<TaskItem> {
         subtitle: Text(widget.task.createdDate.toString()),
         trailing: Text(
           DateFormat('hh:mm a').format(widget.task.createdDate),
-          style: TextStyle(fontSize: 14, color: Colors.grey),
+          style: const TextStyle(fontSize: 14, color: Colors.grey),
         ),
       ),
     );

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:todo_app/model/task.dart';
 import 'package:todo_app/widget/task_list_item.dart';
@@ -84,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                     const Text('Add Task',
                         style: TextStyle(color: Colors.black, fontSize: 18)),
                     IconButton(
-                      icon: Icon(Icons.add),
+                      icon: const Icon(Icons.add),
                       onPressed: () {
                         _showButtomAddTaskSheet(context);
                       },
@@ -112,6 +110,7 @@ class _HomePageState extends State<HomePage> {
                     context,
                     showSecondsColumn: false,
                     onConfirm: (time) {
+                      // ignore: no_leading_underscores_for_local_identifiers
                       var _newTask =
                           Task.create(name: value, createdDate: time);
                       _allTasks.add(_newTask);
