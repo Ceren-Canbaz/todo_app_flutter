@@ -1,0 +1,25 @@
+import 'package:uuid/uuid.dart';
+
+class Task {
+  final String id;
+  final String name;
+  final DateTime createdDate;
+  final bool isCompleted;
+
+  Task(
+      {required this.id,
+      required this.name,
+      required this.createdDate,
+      required this.isCompleted});
+
+  factory Task.create({
+    required String name,
+    required DateTime createdDate,
+  }) {
+    return Task(
+        id: const Uuid().v1(),
+        name: name,
+        createdDate: createdDate,
+        isCompleted: false);
+  }
+}
