@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:todo_app/data/local_storage.dart';
+import 'package:todo_app/main.dart';
 import 'package:todo_app/model/task.dart';
 import 'package:todo_app/widget/task_list_item.dart';
 
@@ -12,12 +14,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late List<Task> _allTasks;
+  late LocalStorage localStorage;
   @override
   void initState() {
     super.initState();
+    localStorage = locator<LocalStorage>();
     _allTasks = <Task>[];
     _allTasks.add(Task.create(name: 'deneme', createdDate: DateTime.now()));
-    _allTasks.add(Task.create(name: 'deneme', createdDate: DateTime.now()));
+    getAllTask();
   }
 
   @override
@@ -67,6 +71,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       onDismissed: (direction) {
                         _allTasks.removeAt(index);
+                        localStorage.deleteTask(task: currentTask);
                         setState(() {});
                       },
                       child: TaskItem(
@@ -109,11 +114,12 @@ class _HomePageState extends State<HomePage> {
                   DatePicker.showTimePicker(
                     context,
                     showSecondsColumn: false,
-                    onConfirm: (time) {
+                    onConfirm: (time) async {
                       // ignore: no_leading_underscores_for_local_identifiers
                       var _newTask =
                           Task.create(name: value, createdDate: time);
                       _allTasks.add(_newTask);
+                      await localStorage.addTask(task: _newTask);
                       setState(() {});
                     },
                   );
@@ -122,5 +128,10 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         });
+  }
+
+  void getAllTask() async {
+    _allTasks = await localStorage.getAllTask();
+    setState(() {});
   }
 }

@@ -7,3 +7,34 @@ abstract class LocalStorage {
   Future<bool> deleteTask({required Task task});
   Future<Task> updateTask({required Task task});
 }
+
+class HiveLocalStorage extends LocalStorage {
+  @override
+  Future<void> addTask({required Task task}) {
+    // TODO: implement addTask
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> deleteTask({required Task task}) {
+    // TODO: implement deleteTask
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Task>> getAllTask() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Task> getTask({required String id}) {
+    // TODO: implement getTask
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Task> updateTask({required Task task}) {
+    // TODO: implement updateTask
+    throw UnimplementedError();
+  }
+}
