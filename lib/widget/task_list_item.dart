@@ -69,6 +69,7 @@ class _TaskItemState extends State<TaskItem> {
                 onSubmitted: (value) {
                   if (value.isNotEmpty) {
                     widget.task.name = value;
+                    localStorage.updateTask(task: widget.task);
                   }
                 },
               ),
