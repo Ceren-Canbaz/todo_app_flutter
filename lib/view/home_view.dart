@@ -103,7 +103,9 @@ class _HomePageState extends State<HomePage> {
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: ListTile(
               title: TextField(
-                decoration: InputDecoration(hintText: 'Add Task'),
+                autofocus: true,
+                textInputAction: TextInputAction.done,
+                decoration: const InputDecoration(hintText: 'Add Task'),
                 onSubmitted: (value) {
                   Navigator.of(context).pop();
                   DatePicker.showTimePicker(

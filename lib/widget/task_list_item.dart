@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:intl/intl.dart';
 
 import '../model/task.dart';
 
@@ -56,6 +57,8 @@ class _TaskItemState extends State<TaskItem> {
               )
             : TextField(
                 controller: _controller,
+                minLines: 1,
+                maxLines: null,
                 decoration: const InputDecoration(border: InputBorder.none),
                 onSubmitted: (value) {
                   if (value.isNotEmpty) {
@@ -64,7 +67,10 @@ class _TaskItemState extends State<TaskItem> {
                 },
               ),
         subtitle: Text(widget.task.createdDate.toString()),
-        trailing: Text(),
+        trailing: Text(
+          DateFormat('hh:mm a').format(widget.task.createdDate),
+          style: TextStyle(fontSize: 14, color: Colors.grey),
+        ),
       ),
     );
   }
