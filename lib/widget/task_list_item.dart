@@ -13,6 +13,14 @@ class TaskItem extends StatefulWidget {
 }
 
 class _TaskItemState extends State<TaskItem> {
+  TextEditingController _controller = TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller.text = widget.task.name;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,24 +32,39 @@ class _TaskItemState extends State<TaskItem> {
             BoxShadow(color: Colors.black.withOpacity(.2), blurRadius: 10)
           ]),
       child: ListTile(
-        title: Text(widget.task.name),
-        subtitle: Text(widget.task.createdDate.toString()),
         leading: GestureDetector(
           onTap: () {
             widget.task.isCompleted = !widget.task.isCompleted;
             setState(() {});
           },
           child: Container(
-            child: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
             decoration: BoxDecoration(
                 color: widget.task.isCompleted ? Colors.green : Colors.white,
                 border: Border.all(color: Colors.grey, width: 0.8),
                 shape: BoxShape.circle),
+            child: const Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
           ),
         ),
+        title: widget.task.isCompleted
+            ? Text(
+                widget.task.name,
+                style: const TextStyle(
+                    decoration: TextDecoration.lineThrough, color: Colors.grey),
+              )
+            : TextField(
+                controller: _controller,
+                decoration: const InputDecoration(border: InputBorder.none),
+                onSubmitted: (value) {
+                  if (value.isNotEmpty) {
+                    widget.task.name = value;
+                  }
+                },
+              ),
+        subtitle: Text(widget.task.createdDate.toString()),
+        trailing: Text(),
       ),
     );
   }
