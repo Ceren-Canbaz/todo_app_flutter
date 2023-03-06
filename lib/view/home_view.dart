@@ -17,6 +17,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _allTasks = <Task>[];
+    _allTasks.add(Task.create(name: 'deneme', createdDate: DateTime.now()));
   }
 
   @override
@@ -55,6 +56,15 @@ class _HomePageState extends State<HomePage> {
                   var currentTask = _allTasks[index];
                   return Dismissible(
                     key: Key(currentTask.id),
+                    background: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: const [
+                        Icon(Icons.delete),
+                        SizedBox(
+                          width: 20,
+                        ),
+                      ],
+                    ),
                     onDismissed: (direction) {
                       _allTasks.removeAt(index);
                       setState(() {});
