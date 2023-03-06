@@ -11,10 +11,15 @@ void setUp() {
   locator.registerSingleton<LocalStorage>(HiveLocalStorage());
 }
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+Future<void> setUpHive() async {
   await Hive.initFlutter();
   Hive.registerAdapter(TaskAdapter());
+  var taskBox = await Hive.openBox<Task>('tasks');
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setUpHive();
   setUp();
   runApp(const MyApp());
 }

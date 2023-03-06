@@ -64,6 +64,7 @@ class _TaskItemState extends State<TaskItem> {
                 controller: _controller,
                 minLines: 1,
                 maxLines: null,
+                textInputAction: TextInputAction.go,
                 decoration: const InputDecoration(border: InputBorder.none),
                 onSubmitted: (value) {
                   if (value.isNotEmpty) {
