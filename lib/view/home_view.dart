@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:todo_app/model/task.dart';
+import 'package:todo_app/widget/task_list_item.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _allTasks = <Task>[];
+    _allTasks.add(Task.create(name: 'deneme', createdDate: DateTime.now()));
     _allTasks.add(Task.create(name: 'deneme', createdDate: DateTime.now()));
   }
 
@@ -55,25 +57,23 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) {
                   var currentTask = _allTasks[index];
                   return Dismissible(
-                    key: Key(currentTask.id),
-                    background: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: const [
-                        Icon(Icons.delete),
-                        SizedBox(
-                          width: 20,
-                        ),
-                      ],
-                    ),
-                    onDismissed: (direction) {
-                      _allTasks.removeAt(index);
-                      setState(() {});
-                    },
-                    child: ListTile(
-                      title: Text(currentTask.name),
-                      subtitle: Text(currentTask.createdDate.toString()),
-                    ),
-                  );
+                      key: Key(currentTask.id),
+                      background: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: const [
+                          Icon(Icons.delete),
+                          SizedBox(
+                            width: 20,
+                          ),
+                        ],
+                      ),
+                      onDismissed: (direction) {
+                        _allTasks.removeAt(index);
+                        setState(() {});
+                      },
+                      child: TaskItem(
+                        task: currentTask,
+                      ));
                 },
                 itemCount: _allTasks.length,
               )
