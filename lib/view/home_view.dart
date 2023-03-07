@@ -3,6 +3,7 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:todo_app/data/local_storage.dart';
 import 'package:todo_app/main.dart';
 import 'package:todo_app/model/task.dart';
+import 'package:todo_app/widget/search_delegate.dart';
 import 'package:todo_app/widget/task_list_item.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: GestureDetector(
             onTap: () {
-              _showButtomAddTaskSheet(context);
+              _showButtomAddTaskSheet();
             },
             child: const Text(
               'To do',
@@ -39,14 +40,16 @@ class _HomePageState extends State<HomePage> {
           ),
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  _showSearchPage();
+                },
                 icon: const Icon(
                   Icons.search,
                   color: Colors.black,
                 )),
             IconButton(
                 onPressed: () {
-                  _showButtomAddTaskSheet(context);
+                  _showButtomAddTaskSheet();
                 },
                 icon: const Icon(
                   Icons.add,
@@ -89,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                     IconButton(
                       icon: const Icon(Icons.add),
                       onPressed: () {
-                        _showButtomAddTaskSheet(context);
+                        _showButtomAddTaskSheet();
                       },
                     )
                   ],
@@ -97,7 +100,7 @@ class _HomePageState extends State<HomePage> {
               ));
   }
 
-  void _showButtomAddTaskSheet(BuildContext context) {
+  void _showButtomAddTaskSheet() {
     showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -133,6 +136,12 @@ class _HomePageState extends State<HomePage> {
 
   void getAllTask() async {
     _allTasks = await localStorage.getAllTask();
+    setState(() {});
+  }
+
+  void _showSearchPage() async {
+    await showSearch(
+        context: context, delegate: CustomSearchDelegate(allTasks: _allTasks));
     setState(() {});
   }
 }
