@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:todo_app/data/local_storage.dart';
+import 'package:todo_app/helper/translation_helper.dart';
 import 'package:todo_app/main.dart';
 import 'package:todo_app/model/task.dart';
 import 'package:todo_app/widget/search_delegate.dart';
@@ -117,6 +118,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.of(context).pop();
                   DatePicker.showTimePicker(
                     context,
+                    locale: TranslationHelper.getDeviceLanguage(context),
                     showSecondsColumn: false,
                     onConfirm: (time) async {
                       // ignore: no_leading_underscores_for_local_identifiers
