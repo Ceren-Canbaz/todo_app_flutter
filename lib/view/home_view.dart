@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:todo_app/data/local_storage.dart';
@@ -21,7 +22,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     localStorage = locator<LocalStorage>();
     _allTasks = <Task>[];
-    _allTasks.add(Task.create(name: 'deneme', createdDate: DateTime.now()));
     getAllTask();
   }
 
@@ -34,9 +34,9 @@ class _HomePageState extends State<HomePage> {
               _showButtomAddTaskSheet();
             },
             child: const Text(
-              'To do',
+              'title',
               style: TextStyle(color: Colors.black),
-            ),
+            ).tr(),
           ),
           actions: [
             IconButton(
@@ -87,8 +87,9 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('Add Task',
-                        style: TextStyle(color: Colors.black, fontSize: 18)),
+                    const Text('empty_task_list',
+                            style: TextStyle(color: Colors.black, fontSize: 18))
+                        .tr(),
                     IconButton(
                       icon: const Icon(Icons.add),
                       onPressed: () {
@@ -111,7 +112,7 @@ class _HomePageState extends State<HomePage> {
               title: TextField(
                 autofocus: true,
                 textInputAction: TextInputAction.done,
-                decoration: const InputDecoration(hintText: 'Add Task'),
+                decoration: InputDecoration(hintText: 'add_task'.tr()),
                 onSubmitted: (value) {
                   Navigator.of(context).pop();
                   DatePicker.showTimePicker(
@@ -142,6 +143,5 @@ class _HomePageState extends State<HomePage> {
   void _showSearchPage() async {
     await showSearch(
         context: context, delegate: CustomSearchDelegate(allTasks: _allTasks));
-    setState(() {});
   }
 }

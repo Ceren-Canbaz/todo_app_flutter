@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/data/local_storage.dart';
 import 'package:todo_app/main.dart';
@@ -68,7 +69,7 @@ class CustomSearchDelegate extends SearchDelegate {
             itemCount: filtredList.length,
           )
         : Center(
-            child: Text('No match'),
+            child: const Text('no_match').tr(),
           );
   }
 
